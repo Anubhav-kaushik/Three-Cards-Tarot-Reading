@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Card Tarot Reading</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="tarot--container">
+        <div class="tarot--header">
+            <figure class="tarot--logo">
+                <img src="infographics/interactive-names/logo.png" alt="PathForward logo">
+            </figure>
+        </div>
+        <div class="tarot--main">
+            <div class="tarot--first">
+                <!-- main heading -->
+                <h1 class="tarot--main-heading">
+                    <span>Free Three-Card</span>
+                    <span>Tarot Reading</span>
+                </h1>
+
+                <!-- divider -->
+                <div class="tarot--main-divider">
+                    <!-- TODO: add divider image here -->
+                </div>
+
+                <!-- paragraphs -->
+                <div class="tarot--main-paragraphs">
+                    <p>
+                        Let’s face it – the world is a confusing place these days, and we could all use a little more
+                        guidance. Whether you’re high-key stressed about work or preoccupied with the amour that
+                        ghosted you, a bit of sage advice is in order. With a tarot reading, you can get essential
+                        insights that will help you elevate your vibe and slay the next challenge.
+                    </p>
+                    <br>
+                    <p>
+                        Though the cards can’t always deliver clear-cut predictions, they can point you toward the
+                        cause of conflict, the lesson of greatest importance, and the path to peace and resolution.
+                        This interactive tarot reading gives you an intriguing starting point for your journey.
+                    </p>
+                </div>
+
+                <!-- selection and enter question section  -->
+                <div class="tarot--user-input-section">
+                    <div class="tarot--choose-spread-heading">
+                        <h2>Choose your spread.</h2>
+                    </div>
+                    <div class="tarot--spread-choices">
+                        <div id="tarot--past-present-future">
+                            Past | Present | Future
+                        </div>
+                        <div id="tarot--context-focus-outcome">
+                            Context | Focus | Outcome
+                        </div>
+                        <div id="tarot--situation-obstacle-advice">
+                            Situation | Obstacle | Advice
+                        </div>
+                    </div>
+                    <div class="tarot--spread-description">
+                        <p>
+                            <!-- Enter text here using JS based on the user choice -->
+                        </p>
+                    </div>
+                    <div class="tarot--question-input-container">
+                        <textarea name="question" id="user-question" cols="30" rows="2" placeholder="Enter your question or subject here"></textarea>
+                    </div>
+                    <div class="tarot--submit-btn-container">
+                        <button id="submit-btn" class="tarot--btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tarot--second">
+                <div class="tarot--card-pack-container">
+                    <h2>
+                        Pick three cards
+                    </h2>
+                    <div class="tarot--card-pack">
+                        <!-- TODO: add cards using JS -->
+                    </div>
+                    <div class="tarot--shuffle-btn-container">
+                        <button id="shuffle-btn" class="tarot--btn" onclick="shuffleCards()">Shuffle Cards</button>
+                    </div>
+                </div>
+                <div class="tarot--unknown-cards-container">
+                    <div class="tarot--unknown-cards">
+                        <div class="unknown-card-container" id="tarot--unknown-card-1">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="unknown-card">
+                                ?
+                            </div>
+                        </div>
+                        <div class="unknown-card-container" id="tarot--unknown-card-2">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="unknown-card">
+                                ?
+                            </div>
+                        </div>
+                        <div class="unknown-card-container" id="tarot--unknown-card-3">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="unknown-card">
+                                ?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tarot--show-cards-btn-container">
+                        <button id="show-cards-btn" class="tarot--btn">Show Cards</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tarot--third">
+                <div class="tarot--result-cards-container">
+                    <h2>
+                        Tap on the cards to read
+                    </h2>
+                    <div class="tarot--reult-cards">
+                        <div class="tarot--result-card" id="tarot--result-card-1">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="tarot--card-front">
+                                <!-- enter card image using JS -->
+                            </div>
+                            <div class="tarot--card-back">
+                                <!-- enter card text using JS -->
+                            </div>
+                        </div>
+                        <div class="tarot--result-card" id="tarot--result-card-2">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="tarot--card-front">
+                                <!-- enter card image using JS -->
+                            </div>
+                            <div class="tarot--card-back">
+                                <!-- enter card text using JS -->
+                            </div>
+                        </div>
+                        <div class="tarot--result-card" id="tarot--result-card-3">
+                            <p>
+                                <!-- Enter text using JS according to the user input -->
+                            </p>
+                            <div class="tarot--card-front">
+                                <!-- enter card image using JS -->
+                            </div>
+                            <div class="tarot--card-back">
+                                <!-- enter card text using JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tarot--conclusion-container">
+                    <h2>
+                        Conclusion
+                    </h2>
+                    <p>
+                        This spread can get you started, but it will only scratch the surface of what you can
+                        learn from tarot. Go for a deep dive and reveal all that the universe has to show you
+                        with a live psychic reading. You can get a personalized pick of tarot spreads and the
+                        intuitive hands of a skilled reader to deliver the deets you’re really looking for.
+                    </p>
+                    <div class="tarot--retry-btn">
+                        <a href="#">
+                            <span>
+                                <!-- TODO: add left side arrow image -->
+                            </span>
+                            <span>
+                                Retry
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="tarot--footer">
+            <div class="tarot--connect">
+                <h3>Do you have any questions about your results?</h3>
+                <h3>Get connected to a Tarot Reader for deeper insights.</h3>
+            </div>
+            <a class="tarot--link" href="www.pathforwardpsychics.com/our-psychics">
+                www.pathforwardpsychics.com/our-psychics
+            </a>
+    </div>
+    </div>
+
+    <script src="action.js"></script>
+</body>
+
+</html>
