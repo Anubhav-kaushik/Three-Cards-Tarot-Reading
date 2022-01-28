@@ -25,7 +25,9 @@
 
 :root {
     --button-orange: #f49434;
+    --button-disable-orange: #f4943433;
     --text-margenta: #731745;
+    --text-white: #fff;
 }
 
 body {
@@ -69,6 +71,28 @@ body {
 
 /* Main */
 
+#tarot--container  a {
+    text-decoration: none;
+    color: white
+}
+
+.tarot--btn {
+    padding: 0.5em 2em;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--button-orange);
+    font-family: 'Museo Sans 500', sans-serif;
+    font-size: 1em;
+    color: var(--text-margenta);
+    border: none;
+}
+
+.tarot--btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
 /* --First Section-- */
 .tarot--first {
     min-height: calc(100vh - 150px);
@@ -77,12 +101,13 @@ body {
 }
 
 .tarot--first > h1 {
-    font-family: 'Museo Sans 300';
+    font-family: 'Museo Sans 500';
     font-size: 5em;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 .tarot--first > h1 > span {
@@ -90,45 +115,76 @@ body {
 }
 
 .tarot--main-paragraphs {
-    font-family: 'Museo Sans Rounded 700', sans-serif;
+    font-family: 'Museo Sans Rounded 300', sans-serif;
     font-size: 1em;
+    width: 90%;
+    margin: 3em auto;
 }
 
 .tarot--spread-choices {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 2em;
 }
 
-.tarot--spread-choices > div {
-    padding: 0.5em 2em;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: var(--button-orange);
-    font-family: 'Museo Sans 500', sans-serif;
-    font-size: 1em;
-    color: var(--text-margenta);
-    transition: background-color 0.3s ease-in-out;
+.tarot--spread-choices > .tarot--btn {
+    transition: background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out;
 }
 
-.tarot--spread-choices > div:hover {
+.tarot--spread-choices > .tarot--btn:hover {
+    color: white;
+}
+
+.tarot--spread-choices > .tarot--btn[data-choosen="true"] {
     background-color: white;
+    color: var(--text-margenta);
 }
 
 .tarot--spread-description {
-    font-family: sans-serif;
+    font-family: 'Museo Sans Rounded 300', sans-serif;
+    font-size: 1em;
 }
 
-.tarot--question-input-container > textarea {
-    width: 100px;
-    height: 30px;
+.tarot--spread-description > p {
+    width: 70%;
+    margin: 4em auto 0em;
 }
 
+
+.tarot--question-input-container > input {
+    min-width: 20em;
+    height: fit-content;
+    text-align: center;
+    color: var(--text-white);
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1.5em;
+    margin: 3em auto;
+    font-family: 'Museo Sans Rounded 300';
+    padding: 0.5em;
+}
+
+.tarot--question-input-container > input:focus {
+    outline: none;
+    background-color: #fff2;
+}
+
+.tarot--submit-btn-container {
+    margin-bottom: 6em;
+}
 
 
 /* second page */
 
 /* deck shuffle */
+.tarot--card-pack-container {
+    height: max-content;
+}
+
 .tarot--card-pack {
     display: flex;
     justify-content: center;
@@ -140,7 +196,8 @@ body {
     margin: 0 auto;
 }
 .tarot--card {
-    background-image: linear-gradient(to bottom, #7e47bd, #a7f3ae);
+    background-image: url(infographics/interactive-names/ace-card-back.png);
+    background-size: cover;
     border-radius: 10px;
     width: 100px;
     height: 150px;
@@ -152,5 +209,113 @@ body {
 
 .tarot--card:hover {
     transform: translateY(-20px);
+}
+
+/* unknown card style */
+.tarot--unknown-cards {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    background-color: transparent;
+    position: relative;
+    margin: 0 auto;
+}
+
+.tarot--unknown-card {
+    background-image: url(infographics/interactive-names/unknown-card.png);
+    background-size: cover;
+    border-radius: 10px;
+    width: 200px;
+    height: 300px;
+    border: none;
+    transition: box-shadow 0.3s ease-in-out, transform 0.5s ease-in-out;; 
+    cursor: default;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10em;
+    background-color: var(--text-margenta);
+}
+
+.tarot--unknown-card:hover {
+    box-shadow: 0 0 15px var(--text-margenta);
+    transform: scale(1.02);
+}
+
+
+/* --Third Section-- */
+
+/* Flip card style */
+.tarot--result-cards {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 90vw;
+    height: max-content;
+    background-color: transparent;
+    position: relative;
+    margin: 0 auto;
+}
+
+.tarot--result-card {
+    width: 200px;
+    height: 300px;
+}
+
+.tarot--result-card > * {
+    position: absolute;
+}
+
+.tarot--r-card {
+    width: 200px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 600px;
+    background-color: transparent;
+}
+
+.tarot--r-card--inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 2px #0004;
+    border: 1px solid #0005;
+    transform: rotateY(180deg);
+}
+
+.tarot--r-card--inner.is-flipped {
+    transform: rotateY(0deg);
+}
+
+.tarot--r-card--face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarot--r-card--face-front {
+    background: url(infographics/interactive-names/ace-card-front.png) no-repeat center;
+    background-size: cover;
+}
+
+.tarot--r-card--face-back {
+    transform: rotateY(180deg);
+    background: url(infographics/interactive-names/ace-card-back.png) no-repeat center;
+    background-size: cover;
 }
 

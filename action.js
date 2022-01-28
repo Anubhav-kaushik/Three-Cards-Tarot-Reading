@@ -1,3 +1,70 @@
+/* spread choice selection */
+const spreadData = {
+    'past-present-future': 'This spread can help you recall significant moments from the past, connect these to your current situation, and see where you’re headed so you can course correct if needed and find the best way to glow up.',
+
+    'context-focus-outcome': "If you're struggling to understand your current situation, this tarot spread can untangle things for you. These cards show you what lens to look through, the most important thing to focus on, and where your path will likely lead.",
+
+    'situation-obstacle-advice': "Are you unclear on what's driving you right now? This tarot spread will help you identify the most important situation at present. It will then illuminate the obstacles in your path forward and provide advice on how you can best overcome them."
+}
+
+let selectedSpread;
+function selectChoice(choiceElement) {
+    /*
+        This function select the choice element.
+        choiceElement: The choice element you want to select.
+    */
+    const selectedChoices = document.querySelectorAll('button[data-choosen="true"]');
+    for (let selectedChoice of selectedChoices) {
+        selectedChoice.dataset.choosen = false;
+    }
+    choiceElement.dataset.choosen = true;
+}
+
+function spreadDescription(spread) {
+    const description = document.querySelector('.tarot--spread-description');
+    const para = document.createElement('p');
+    para.innerHTML = spreadData[spread];
+    description.innerHTML = '';
+    description.append(para);
+}
+
+function disableSubmitButton() {
+    const submitButton = document.querySelector('#submit-btn');
+    submitButton.disabled = true;
+}
+
+function enableSubmitButton() {
+    const submitButton = document.querySelector('#submit-btn');
+    submitButton.disabled = false;
+}
+
+function resetSpread(allChoices) {
+    for (let card of allChoices) {
+        card.dataset.choosen = "false";
+    }
+}
+
+function resetDescription() {
+    const description = document.querySelector('.tarot--spread-description');
+    description.innerHTML = '';
+    selectedSpread = undefined;
+}
+
+const allChoices = document.querySelectorAll('.tarot--spread-choices>.tarot--btn');
+
+if (selectedSpread == undefined) {
+    disableSubmitButton();
+}
+
+for (let choice of allChoices) {
+    choice.addEventListener('click', function () {
+        selectChoice(this);
+        selectedSpread = this.dataset.spread;
+        spreadDescription(selectedSpread);
+        enableSubmitButton();
+    });
+}
+
 /* Add deck on the board and shuffle them */
 
 // TODO: run this only when the second page visible
@@ -363,3 +430,17 @@ for (let card of cards) {
 }
 
 /* --- cards shuffle animation ends --- */
+
+/* --- Card Flipping on click --- */
+
+function flip(card) {
+    card.classList.toggle('is-flipped');
+}
+
+const resultCards = document.querySelectorAll('.tarot--r-card--inner');
+
+for (let card of resultCards) {
+    card.addEventListener('click', function() {
+        flip(card);
+    });
+}
