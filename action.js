@@ -1121,8 +1121,9 @@ for (let choice of allChoices) {
 
 async function onClickSubmit() {
     scrollToHeader();
-    await sleep(0.5);
-    showHideSections(2);
+    setTimeout(() => {
+      showHideSections(2);
+    }, 1000);
     visibleSection = 2;
     secondSectionLoaded(selectedSpread);
 }
@@ -1259,6 +1260,7 @@ async function move2center(oneByone=false, delay=0.15, splitHalf=false, reverse=
     }
 
     let count = 0;
+    let zIndex = 0;
     for (let i=0; i<maxRange; i++) {
         let card = cards[i];
         if (reverse && !moveBothEnds) {
@@ -1267,9 +1269,11 @@ async function move2center(oneByone=false, delay=0.15, splitHalf=false, reverse=
 
         count++;
         card.style.left = `${centerX - card.offsetWidth/2}px`;
+        card.style.zIndex = zIndex++;
 
         if (moveBothEnds) {
             cards[cards.length-i-1].style.left = `${centerX - cards[cards.length-i-1].offsetWidth/2}px`;
+            cards[cards.length-i-1].style.zIndex = zIndex++;
         }
 
         if (oneByone) {
@@ -1431,26 +1435,49 @@ function resetPosition() {
     }
 }
 
+function resetZIndex() {
+  const cards = document.querySelectorAll(cardClass);
+  for (let card of cards) {
+      card.style.zIndex = "0";
+  }
+}
+
+function disableShuffleBtn() {
+    const shuffleBtn = document.querySelector('#shuffle-btn');
+    shuffleBtn.disabled = true;
+}
+
+function enableShuffleBtn() {
+    const shuffleBtn = document.querySelector('#shuffle-btn');
+    shuffleBtn.disabled = false;
+}
+
 async function shuffleCards() {
     /*
         Shuffle the cards in the deck.
     */
     shuffleCardsNum();
     resetPosition();
+    disableShowCardsBtn();
+    disableShuffleBtn();
 
     move2left('20%', oneByone=false, delay=0.15, splitHalf=true, reverse=false);
     move2right('20%', oneByone=false, delay=0.15, splitHalf=true, reverse=true);
     await sleep(0.5);
-    await move2center(oneByone=true, delay=0.25, splitHalf=false, reverse=false, moveBothEnds=true);
+    await move2center(oneByone=true, delay=0.15, splitHalf=false, reverse=false, moveBothEnds=true);
+    resetZIndex();
     await sleep(0.5);
     spreadCards();
+    enableShuffleBtn();
 }
 
 // add cards to the board and spread over the board
 let indicator = false
 async function setupCards() {
     createCards(78);
-    move2center();
+    move2center(oneByone=false, delay=0.15, splitHalf=true, reverse=false, moveBothEnds=true);
+    resetZIndex();
+    disableShuffleBtn();
 }
 setupCards();
 
@@ -1535,12 +1562,12 @@ async function secondSectionLoaded(selectedSpread) {
         This function is called when the second section is loaded.
         It adds the card types to the board.
     */
-    await sleep(1);
     spreadCards();
     indicator = true;
     spreadTypes = selectedSpread.split('-');
     spreadTypes = spreadTypes.map(type => type.charAt(0).toUpperCase() + type.slice(1));
     addCardTypes(spreadTypes);
+    enableShuffleBtn();
 }
 
 function getSelectedCardsNum() {
@@ -1581,7 +1608,7 @@ function addDataToCards(choosenCardsNum, spreadTypes) {
     const resultCards = document.querySelectorAll('.tarot--r-card');
     
     for (let i=0; i<resultCards.length; i++) {
-        let cardData = JSON[Math.floor(choosenCardsNum[i])];
+        let cardData = JSON[Math.floor(choosenCardsNum[i])-1];
 
         const card = resultCards[i];
         card.dataset.cardName = cardData.card;

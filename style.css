@@ -121,10 +121,15 @@ body {
     width: max-content;
 }
 
+.tarot--main-divider {
+    max-width: 50em;
+    margin: 2em auto;
+}
+
 .tarot--main-paragraphs {
     font-family: 'Museo Sans Rounded 300', sans-serif;
     font-size: 1.2em;
-    margin: 3em auto;
+    margin: 2em auto;
 }
 
 .tarot--main-paragraphs > p {
