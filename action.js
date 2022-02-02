@@ -1239,7 +1239,7 @@ async function spreadCards() {
     }
 }
 
-async function move2center(oneByone=false, delay=0.15, splitHalf=false, reverse=false, moveBothEnds=false) {
+async function move2center(oneByone=false, delay=0.15, splitHalf=false, reverse=false, moveBothEnds=false, moveNcards = 1) {
     /*
         Move cards to the center of the board.
         Parameters:
@@ -1262,27 +1262,28 @@ async function move2center(oneByone=false, delay=0.15, splitHalf=false, reverse=
     let count = 0;
     let zIndex = 0;
     for (let i=0; i<maxRange; i++) {
-        let card = cards[i];
-        if (reverse && !moveBothEnds) {
-            card = cards[cards.length-i-1];
-        }
+      let j = i;
+      while (j < (count+1)*moveNcards) {
+          let card = reverse && !moveBothEnds ? cards[cards.length - j - 1] : cards[j];
+          card.style.left = `${centerX - card.offsetWidth/2}px`;
+          card.style.zIndex = zIndex++;
 
-        count++;
-        card.style.left = `${centerX - card.offsetWidth/2}px`;
-        card.style.zIndex = zIndex++;
+          if (moveBothEnds) {
+              cards[cards.length - j - 1].style.left = `${centerX - cards[cards.length-j-1].offsetWidth/2}px`;
+              cards[cards.length - j - 1].style.zIndex = zIndex++;
+          }
+          j++;
+      }
+      i = j-1;
 
-        if (moveBothEnds) {
-            cards[cards.length-i-1].style.left = `${centerX - cards[cards.length-i-1].offsetWidth/2}px`;
-            cards[cards.length-i-1].style.zIndex = zIndex++;
-        }
+      if (oneByone) {
+          await sleep(delay);
+      }
 
-        if (oneByone) {
-            await sleep(delay);
-        }
-
-        if (splitHalf && count >= cards.length/2) {
-            break;
-        }
+      count++;
+      if (splitHalf && count >= cards.length/2) {
+          break;
+      }
     }
 }
 
@@ -1464,7 +1465,7 @@ async function shuffleCards() {
     move2left('20%', oneByone=false, delay=0.15, splitHalf=true, reverse=false);
     move2right('20%', oneByone=false, delay=0.15, splitHalf=true, reverse=true);
     await sleep(0.5);
-    await move2center(oneByone=true, delay=0.15, splitHalf=false, reverse=false, moveBothEnds=true);
+    await move2center(oneByone=true, delay=0.20, splitHalf=false, reverse=false, moveBothEnds=true, moveNcards=6);
     resetZIndex();
     await sleep(0.5);
     spreadCards();
@@ -1691,3 +1692,16 @@ async function resetGame() {
     
     disableShowCardsBtn();
 }
+
+function blink(elementId) {
+    const elem = document.querySelector(`#${elementId}`);
+    setInterval(() => {
+      if (elem.dataset.blink == 'false') {
+        elem.dataset.blink = true;
+      } else {
+        elem.dataset.blink = false;
+      }
+    }, 800);
+}
+
+blink('tarot--restart');

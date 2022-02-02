@@ -51,6 +51,7 @@ body {
     background-image: url(infographics/interactive-names/background.jpg);
     background-size: cover;
     color: white;
+    font-family: 'Museo Sans 300';
 }
 
 /* Header */
@@ -81,6 +82,10 @@ body {
 #tarot--container  a {
     text-decoration: none;
     color: white
+}
+
+#tarot--container p {
+    line-height: 1.5em;
 }
 
 .tarot--btn {
@@ -138,6 +143,11 @@ body {
     margin-bottom: 1em;
 }
 
+.tarot--choose-spread-heading h2 {
+    font-family: 'Museo Sans Rounded 700', sans-serif;
+    font-size: 1.5em;
+}
+
 .tarot--spread-choices {
     display: flex;
     justify-content: center;
@@ -169,7 +179,7 @@ body {
 
 .tarot--spread-description > p {
     width: 70%;
-    margin: 4em auto 0em;
+    margin: 2em auto 0;
 }
 
 
@@ -182,9 +192,18 @@ body {
     border: 2px solid white;
     border-radius: 10px;
     font-size: 1.5em;
-    margin: 3em auto;
+    margin: 2em auto;
     font-family: 'Museo Sans Rounded 300';
     padding: 0.5em;
+}
+
+.tarot--question-input-container input::placeholder,
+.tarot--question-input-container input::-webkit-input-placeholder,
+.tarot--question-input-container input::-moz-placeholder,
+.tarot--question-input-container input::-ms-input-placeholder {
+    color: var(--text-white);
+    font-family: 'Museo Sans Rounded 300';
+    font-weight: 500;
 }
 
 .tarot--question-input-container > input:focus {
@@ -193,7 +212,7 @@ body {
 }
 
 .tarot--submit-btn-container {
-    margin-bottom: 6em;
+    margin-bottom: 3em;
 }
 
 
@@ -220,7 +239,7 @@ body {
     border-radius: 10px;
     width: 100px;
     height: 150px;
-    border: 2px double gray;
+    border: 1px solid #fffb;
     position: absolute;
     transition: transform 0.3s ease-in-out, left 0.5s ease-in-out; 
     cursor: pointer;
@@ -240,60 +259,59 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
     width: 100%;
-    height: 400px;
+    min-height: 400px;
     background-color: transparent;
     position: relative;
     margin: 0 auto;
 }
 
 .tarot--unknown-card {
-    background-image: url(infographics/interactive-names/unknown-card.png);
-    background-size: cover;
     border-radius: 10px;
     width: 200px;
     height: 300px;
     border: none;
-    transition: box-shadow 0.3s ease-in-out, transform 0.5s ease-in-out;; 
-    cursor: default;
+    transition: box-shadow 0.3s ease-in-out;; 
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Museo Sans Rounded 500', sans-serif;
     font-size: 10em;
     background-color: var(--card-margenta);
     color: var(--question-mark-light-margenta)
 }
 
-.tarot--unknown-card:hover {
+.unknown-card-container .tarot--unknown-card:hover {
     box-shadow: 0 0 20px var(--shadow-orange);
-    transform: scale(1.02);
 }
 
 .tarot--show-cards-btn-container {
     margin-top: 3em;
-    margin-bottom: 10em;
+    margin-bottom: 5em;
 }
 
 
 /* --Third Section-- */
 
+.tarot--result-cards-container h2 {
+    font-family: 'Museo Sans Rounded 700', sans-serif;
+    font-size: 1.5em;
+}
 /* Flip card style */
 .tarot--result-cards {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1em;
     width: 90vw;
-    height: 350px;
+    min-height: 350px;
     background-color: transparent;
     position: relative;
     margin: 0 auto;
 }
-
-.tarot--result-card {
-    width: 200px;
-    height: 300px;
-}
-
 
 .tarot--r-card {
     width: 200px;
@@ -368,13 +386,14 @@ body {
 .tarot--conclusion-container h2 {
     font-family: 'Museo Sans 300', sans-serif;
     font-size: 5em;
-    margin: 1em auto 0.2em;
+    margin: 0.5em auto 0.2em;
 }
 
 .tarot--conclusion-container p {
     font-family: 'Museo Sans Rounded 300', sans-serif;
     font-size: 1.2em;
-    width: 38em;
+    max-width: 40em;
+    padding: 0 1em;
     margin: 0 auto 2em;
 }
 
@@ -390,17 +409,23 @@ body {
     margin: 2em auto;
 }
 
+.tarot--retry-btn a {
+    transition: all 0.3s ease-in-out;
+}
+
 .tarot--retry-btn a > span {
     font-family: 'Museo Sans Rounded 700', sans-serif;
     font-size: 1.2em;
     transition: color 0.3s ease-in-out;
 }
 
-.tarot--retry-btn a:hover span{
+.tarot--retry-btn a:hover span,
+.tarot--retry-btn a[data-blink="true"] span {
     color: var(--shadow-orange);
 }
 
-.tarot--retry-btn a:hover .tarot--left-arrow{
+.tarot--retry-btn a:hover .tarot--left-arrow,
+.tarot--retry-btn a[data-blink="true"] .tarot--left-arrow {
     fill: var(--shadow-orange);
 }
 
