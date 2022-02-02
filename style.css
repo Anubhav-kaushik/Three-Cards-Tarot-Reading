@@ -31,6 +31,7 @@
     --card-margenta: #922160;
     --shadow-orange: #f79521;
     --question-mark-light-margenta: #B54482;
+    --card-aspect-ratio: 320/620;
 }
 
 body {
@@ -197,10 +198,8 @@ body {
     padding: 0.5em;
 }
 
-.tarot--question-input-container input::placeholder,
-.tarot--question-input-container input::-webkit-input-placeholder,
-.tarot--question-input-container input::-moz-placeholder,
-.tarot--question-input-container input::-ms-input-placeholder {
+#user-question::placeholder,
+#user-question::-webkit-input-placeholder {
     color: var(--text-white);
     font-family: 'Museo Sans Rounded 300';
     font-weight: 500;
@@ -238,7 +237,7 @@ body {
     background-size: cover;
     border-radius: 10px;
     width: 100px;
-    height: 150px;
+    aspect-ratio: var(--card-aspect-ratio);
     border: 1px solid #fffb;
     position: absolute;
     transition: transform 0.3s ease-in-out, left 0.5s ease-in-out; 
@@ -271,7 +270,7 @@ body {
 .tarot--unknown-card {
     border-radius: 10px;
     width: 200px;
-    height: 300px;
+    aspect-ratio: var(--card-aspect-ratio);
     border: none;
     transition: box-shadow 0.3s ease-in-out;; 
     display: flex;
@@ -314,8 +313,8 @@ body {
 }
 
 .tarot--r-card {
+    aspect-ratio: var(--card-aspect-ratio);
     width: 200px;
-    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -354,7 +353,7 @@ body {
 }
 
 .tarot--r-card--face-front {
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-color: #000a;
