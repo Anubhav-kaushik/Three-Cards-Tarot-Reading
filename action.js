@@ -1104,6 +1104,8 @@ function resetInputField() {
     inputField.value = '';
 }
 
+resetInputField();
+
 const allChoices = document.querySelectorAll('.tarot--spread-choices>.tarot--btn');
 
 if (selectedSpread == undefined) {
@@ -1120,12 +1122,12 @@ for (let choice of allChoices) {
 }
 
 async function onClickSubmit() {
+    secondSectionLoaded(selectedSpread);
     scrollToHeader();
     setTimeout(() => {
       showHideSections(2);
     }, 1000);
     visibleSection = 2;
-    secondSectionLoaded(selectedSpread);
 }
 
 /* --Second page JS-- */
@@ -1232,6 +1234,7 @@ async function spreadCards() {
     const cardContainerWidth = cardsContainer.offsetWidth;
     const cardWidth = cards[0].offsetWidth;
     const increament = (cardContainerWidth-cardWidth)/(cards.length-1);
+    
     let initialPos = 0;
     for (let card of cards) {
         card.style.left = `${initialPos}px`;
@@ -1589,13 +1592,14 @@ async function onClickShowCard() {
     /*
         This function is called when the user clicks on the show card button.
     */
-    scrollToHeader();
-    await sleep(0.5);
+
     choosenCardsNum = getSelectedCardsNum();
     resetPosition();
-    showHideSections(3);
     addDataToCards(choosenCardsNum, spreadTypes);
-
+    scrollToHeader();
+    await sleep(0.5);
+    showHideSections(3);
+    point2Back();
 }
 
 /* Third Section */
@@ -1704,4 +1708,45 @@ function blink(elementId) {
     }, 800);
 }
 
+function cardSlightTilt() {
+    let randNum = Math.floor(Math.random() * resultCards.length);
+    const card = resultCards[randNum];
+    card.animate([
+        { transform: 'rotateY(0deg)' },
+        { transform: 'rotateY(30deg)' },
+        { transform: 'rotateY(0deg)' }
+    ], {
+        duration: 1000,
+        iterations: 1,
+        easing: 'ease-in-out'
+    });
+}
+
+function isCardClicked() {
+    /*
+        Check if the card is clicked.
+    */
+    for (let card of resultCards) {
+      if (card.classList.contains('is-flipped')) {
+        return true
+      }
+    }
+    return false;
+}
+
+async function point2Back() {
+  await sleep(3);
+  let interval = setInterval(() => {
+    if (isCardClicked()) {
+      clearInterval(interval);
+      for (let card of resultCards) {
+        card.dataset.clicked = 'true';
+      }
+    } else {
+      cardSlightTilt();
+    }
+  }, 2000);
+}
+
 blink('tarot--restart');
+
